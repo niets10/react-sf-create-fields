@@ -8,7 +8,7 @@ function App() {
 
   // Both backend and frontend need to be running in the terminal to fetch data
   React.useEffect(() => {
-    fetch("/bye")
+    fetch("/api")
       .then( (res) => res.json())
       .then( (data) => setData(data.message) )
   }, []);
