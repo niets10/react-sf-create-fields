@@ -5,10 +5,25 @@ import React, { Component } from 'react';
 
 class LoginScreen extends Component {
 
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+            username : "",
+            password : "",
+        };
+    }
+
     getInfo = () => {
+        console.log('Getting info... ' + this.state.username);
+
+    }
+
+    handleChange = (event) => {
         console.log('Getting info...');
 
-        
+        this.setState( { username: event.target.value } );
 
     }
         
@@ -16,7 +31,7 @@ class LoginScreen extends Component {
         return (
             <div>
                 <div class="mb-3">
-                    <input type="email" placeholder="Username" class="form-control" id="sf-username" aria-describedby="emailHelp"/>
+                    <input type="email" onChange={this.handleChange} placeholder="Username" class="form-control" id="sf-username" aria-describedby="emailHelp"/>
                 </div>
                 <div class="mb-3">
                     <input type="password" placeholder="Password" class="form-control" id="sf-password"/>
