@@ -1,6 +1,7 @@
 import React from "react";
 import logo from './logo.svg';
 import './App.css';
+import LoginScreen from "./components/loginScreen";
 
 function App() {
 
@@ -32,7 +33,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>{!data ? 'Loading...' : data}</p>
-        <button class="btn btn-primary" onClick={authenticate}>Authenticate</button>
+        <LoginScreen authenticate={authenticate}/>
       </header>
     </div>
   );
