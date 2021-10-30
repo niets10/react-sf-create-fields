@@ -32,7 +32,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>{!data ? 'Loading...' : data}</p>
-        <button onClick={authenticate}>Authenticate</button>
+        <button class="btn btn-primary" onClick={authenticate}>Authenticate</button>
       </header>
     </div>
   );
