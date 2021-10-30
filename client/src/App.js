@@ -19,14 +19,7 @@ function App() {
   //     .then( (data) => setData(data.message) )
   // });
 
-  const authenticate = () => {
-    console.log('Authenticating...');
-    fetch("/authenticate",  {
-      method : 'POST',
-      body : JSON.stringify(credentials),
-      headers : { "Content-Type": "application/json" }
-    })
-  }
+
   
 
   return (
@@ -34,7 +27,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         {/* <p>{!data ? 'Loading...' : data}</p> */}
-        <LoginScreen authenticate={authenticate}/>
+        <LoginScreen />
       </header>
     </div>
   );
