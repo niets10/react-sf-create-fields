@@ -11,8 +11,11 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.use(express.json());
 
-app.post("/api", (req, res) => {
+app.post("/authenticate", (req, res) => {
     console.log('REQ '+ JSON.stringify(req.body));
+});
+
+app.get("/api", (req, res) => {
     res.json( { message: "Hello from server 🤘🏻" });
 });
 
