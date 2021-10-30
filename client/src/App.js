@@ -5,12 +5,6 @@ import LoginScreen from "./components/loginScreen";
 
 function App() {
 
-  const [ data, setData ] = React.useState(null);
-
-  const credentials = {
-    username : 'agnieto00@gmail.com',
-    password : 'myRandomPsd'
-  };
 
   // Both backend and frontend need to be running in the terminal to fetch data
   // React.useEffect(() => {
@@ -18,9 +12,6 @@ function App() {
   //     .then( (res) => res.json())
   //     .then( (data) => setData(data.message) )
   // });
-
-
-  
 
   return (
     <div className="App">
