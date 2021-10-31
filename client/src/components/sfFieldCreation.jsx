@@ -6,29 +6,24 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 class SfFieldCreation extends Component {
 
     state = {
-
-        conn : null,
-        loggedIn : true
-
+        loggedIn : false
     }
 
-    handleAuthentication = (state) => {
+    handleAuthentication = (loginScreenState) => {
         console.log('Authenticating...');
 
         fetch("/authenticate",  {
             method : 'POST',
-            body : JSON.stringify(state),
+            body : JSON.stringify(loginScreenState),
             headers : { "Content-Type": "application/json" }
             })
             .then( (res) => res.json() )
             .then( (res) => {
 
-                console.log('CONN: ' + JSON.stringify(res.body));
-
                 if (res.error) {
                     this.setState( { loggedIn: false })
                 } else {
-                    this.setState( { loggedIn: false, conn: res.body })
+                    this.setState( { loggedIn: true })
                 }
                 
             })            
@@ -43,7 +38,7 @@ class SfFieldCreation extends Component {
                     {this.state.loggedIn ? <Redirect to="/fieldSelection" /> : <LoginScreen onAuthentication={this.handleAuthentication} /> }
                 </Route>
                 <Route path="/fieldSelection">
-                    <FieldSelection/>
+                    <FieldSelection />
                 </Route>
             </Switch>
         </Router>);

@@ -1,11 +1,9 @@
 const express = require("express");
-const {parse, stringify, toJSON, fromJSON} = require('flatted');
 const app = express();
 const path = require('path');
 
 // Import internal modules
-const sfAuthentication = require('./utilities/sf-authentication');
-const { selectObject } = require('./utilities/select-object');
+const { sfAuthentication, getAvailableObjects } = require('./utilities/sf-logic');
 
 const PORT = process.env.PORT || 3001;
 
@@ -21,8 +19,9 @@ app.post("/authenticate", async (req, res, next) => {
 
     try {
 
-        let conn = await sfAuthentication.main(req.body);
-        res.send( { error: false, body: toJSON(conn.metadata) } );
+        await sfAuthentication(req.body);
+
+        res.send( { error: false } );
         
     } catch (error) {
         
@@ -34,10 +33,8 @@ app.post("/authenticate", async (req, res, next) => {
 });
 
 app.post("/selectObject", async (req, res) => {
-
-    let availableObjects = selectObject();
-    console.log('Av Objects' + JSON.stringify(availableObjects));
-
+    console.log('Getting objects...');
+    res.send( await getAvailableObjects() );
 })
 
 /**
