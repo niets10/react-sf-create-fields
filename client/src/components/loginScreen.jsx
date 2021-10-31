@@ -25,19 +25,19 @@ class LoginScreen extends Component {
         });
     }
 
-    authenticate = () => {
-        console.log('Authenticating...');
+    // authenticate = () => {
+    //     console.log('Authenticating...');
 
-        fetch("/authenticate",  {
-          method : 'POST',
-          body : JSON.stringify(this.state),
-          headers : { "Content-Type": "application/json" }
-        })
-        .then( (res) => res.json() )
-        .then( (conn) => {
+    //     fetch("/authenticate",  {
+    //       method : 'POST',
+    //       body : JSON.stringify(this.state),
+    //       headers : { "Content-Type": "application/json" }
+    //     })
+    //     .then( (res) => res.json() )
+    //     .then( (conn) => {
             
-        })
-    }
+    //     })
+    // }
         
     render() { 
         return (
@@ -62,7 +62,7 @@ class LoginScreen extends Component {
                             <label class="form-check-label" for="Sandbox">Sandbox</label>
                         </div>
                     </div>
-                    <button class="btn btn-primary" onClick={this.authenticate}>Authenticate</button>
+                    <button class="btn btn-primary" onClick={() => this.props.onAuthentication(this.state)}>Authenticate</button>
                 {/* </form> */}
             </div>
         );

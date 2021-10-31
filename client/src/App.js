@@ -1,7 +1,7 @@
 import React from "react";
 import logo from './logo.svg';
 import './App.css';
-import LoginScreen from "./components/loginScreen";
+import SfFieldCreation from "./components/sfFieldCreation";
 
 function App() {
 
@@ -17,7 +17,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <LoginScreen />
+        <SfFieldCreation />
       </header>
     </div>
   );

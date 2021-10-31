@@ -12,9 +12,7 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(express.json());
 
 app.post("/authenticate", async (req, res) => {
-    
-    sfAuthentication.main(req.body);
-    console.log(conn.metadata);
+    let conn = await sfAuthentication.main(req.body);
     res.send( toJSON(conn.metadata) );
 });
 
