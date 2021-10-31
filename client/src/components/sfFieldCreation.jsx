@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import LoginScreen from './loginScreen';
 import FieldSelection from './fieldSelection';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 class SfFieldCreation extends Component {
 
     state = {
 
-        conn : {}
+        conn : {},
+        loggedIn : false
 
     }
 
@@ -20,15 +22,24 @@ class SfFieldCreation extends Component {
         })
         .then( (res) => res.json() )
         .then( (conn) => {
+
+            this.setState( { loggedIn: true })
             
         })
     }
 
     render() { 
-        return (<div>
-            <LoginScreen onAuthentication={this.handleAuthentication} />
-            <FieldSelection />
-        </div>);
+        return (
+        <Router>
+            <Switch>
+                <Route exact path="/" >
+                    {this.state.loggedIn ? <Redirect to="/fieldSelection" /> : <LoginScreen onAuthentication={this.handleAuthentication} /> }
+                </Route>
+                <Route path="/fieldSelection">
+                    <FieldSelection/>
+                </Route>
+            </Switch>
+        </Router>);
     }
 }
  
