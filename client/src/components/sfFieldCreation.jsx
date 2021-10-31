@@ -8,7 +8,7 @@ class SfFieldCreation extends Component {
     state = {
 
         conn : null,
-        loggedIn : false
+        loggedIn : true
 
     }
 

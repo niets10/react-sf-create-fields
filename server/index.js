@@ -2,8 +2,10 @@ const express = require("express");
 const {parse, stringify, toJSON, fromJSON} = require('flatted');
 const app = express();
 const path = require('path');
-const { nextTick } = require("process");
+
+// Import internal modules
 const sfAuthentication = require('./utilities/sf-authentication');
+const { selectObject } = require('./utilities/select-object');
 
 const PORT = process.env.PORT || 3001;
 
@@ -12,6 +14,9 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.use(express.json());
 
+/**
+ * POST METHODS
+ */
 app.post("/authenticate", async (req, res, next) => {
 
     try {
@@ -28,6 +33,16 @@ app.post("/authenticate", async (req, res, next) => {
     }
 });
 
+app.post("/selectObject", async (req, res) => {
+
+    let availableObjects = selectObject();
+    console.log('Av Objects' + JSON.stringify(availableObjects));
+
+})
+
+/**
+ * GET METHODS
+ */
 app.get("/api", (req, res) => {
     res.json( { message: "Hello from server 🤘🏻" });
 });
