@@ -27,17 +27,17 @@ class LoginScreen extends Component {
 
     authenticate = () => {
         console.log('Authenticating...');
-        console.log('Username: ' + this.state.username);
-        console.log('Password: ' + this.state.password);
-        console.log('Token: ' + this.state.token);        
-        console.log('Environment: ' + this.state.environment);
 
         fetch("/authenticate",  {
           method : 'POST',
           body : JSON.stringify(this.state),
           headers : { "Content-Type": "application/json" }
         })
-     }
+        .then( (res) => res.json() )
+        .then( (conn) => {
+            
+        })
+    }
         
     render() { 
         return (

@@ -1,18 +1,21 @@
 const express = require("express");
+const {parse, stringify, toJSON, fromJSON} = require('flatted');
 const app = express();
 const path = require('path');
+const sfAuthentication = require('./utilities/sf-authentication');
 
 const PORT = process.env.PORT || 3001;
-
-
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.use(express.json());
 
-app.post("/authenticate", (req, res) => {
-    console.log('REQ '+ JSON.stringify(req.body));
+app.post("/authenticate", async (req, res) => {
+    
+    sfAuthentication.main(req.body);
+    console.log(conn.metadata);
+    res.send( toJSON(conn.metadata) );
 });
 
 app.get("/api", (req, res) => {
