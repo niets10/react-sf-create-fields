@@ -7,7 +7,7 @@ class SfFieldCreation extends Component {
 
     state = {
 
-        conn : {},
+        conn : null,
         loggedIn : false
 
     }
@@ -16,16 +16,23 @@ class SfFieldCreation extends Component {
         console.log('Authenticating...');
 
         fetch("/authenticate",  {
-          method : 'POST',
-          body : JSON.stringify(state),
-          headers : { "Content-Type": "application/json" }
-        })
-        .then( (res) => res.json() )
-        .then( (conn) => {
+            method : 'POST',
+            body : JSON.stringify(state),
+            headers : { "Content-Type": "application/json" }
+            })
+            .then( (res) => res.json() )
+            .then( (res) => {
 
-            this.setState( { loggedIn: true })
-            
-        })
+                console.log('CONN: ' + JSON.stringify(res.body));
+
+                if (res.error) {
+                    this.setState( { loggedIn: false })
+                } else {
+                    this.setState( { loggedIn: false, conn: res.body })
+                }
+                
+            })            
+            .catch( err => console.log('Error in React', err.body))
     }
 
     render() { 

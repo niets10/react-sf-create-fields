@@ -16,7 +16,7 @@ async function main(body) {
         return conn;
 
     } catch (error) {
-        console.log(error);
+        throw error;
     }
 }
 

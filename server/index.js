@@ -2,6 +2,7 @@ const express = require("express");
 const {parse, stringify, toJSON, fromJSON} = require('flatted');
 const app = express();
 const path = require('path');
+const { nextTick } = require("process");
 const sfAuthentication = require('./utilities/sf-authentication');
 
 const PORT = process.env.PORT || 3001;
@@ -11,9 +12,20 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.use(express.json());
 
-app.post("/authenticate", async (req, res) => {
-    let conn = await sfAuthentication.main(req.body);
-    res.send( toJSON(conn.metadata) );
+app.post("/authenticate", async (req, res, next) => {
+
+    try {
+
+        let conn = await sfAuthentication.main(req.body);
+        res.send( { error: false, body: toJSON(conn.metadata) } );
+        
+    } catch (error) {
+        
+        console.log('Error authenticating: ' + error);
+        res.send( { error: true, body: error} );
+        next(error);
+
+    }
 });
 
 app.get("/api", (req, res) => {
