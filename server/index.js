@@ -21,7 +21,9 @@ app.post("/authenticate", async (req, res, next) => {
 
         await sfAuthentication(req.body);
 
-        res.send( { error: false } );
+        let availableObjects = await getAvailableObjects();
+
+        res.send( { error: false, availableObjects : availableObjects } );
         
     } catch (error) {
         
@@ -34,7 +36,7 @@ app.post("/authenticate", async (req, res, next) => {
 
 app.post("/selectObject", async (req, res) => {
     console.log('Getting objects...');
-    res.send( await getAvailableObjects() );
+    res.send(  );
 })
 
 /**

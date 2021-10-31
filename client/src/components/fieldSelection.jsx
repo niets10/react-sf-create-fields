@@ -6,38 +6,36 @@ class FieldSelection extends Component {
         availableObjects : null
     }
 
-    componentDidMount() {     
-        this.fetchObjects();
-    } 
+    constructor(props) {
+        super(props);
 
-    fetchObjects = () => {
-        console.log('Fetching');
-
-        fetch("/selectObject",  {
-            method : 'POST',
-            headers : { "Content-Type": "application/json" }
-        })
-        .then( (res) => res.json())
-        .then( (data) => {
-            console.log('Data: ', JSON.stringify(data));
-            this.setState( { availableObjects : data })
-        });
+        this.state.availableObjects = this.props.availableObjects;
     }
-    
+
     render() { 
         return (
             <div>
-                
-                <h1>Hello World!</h1>
                 <select class="form-select" aria-label="Default select example">
 
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    {this.state.availableObjects.map(availableObject => {
+                        return <option>{availableObject}</option>
+                    })}
                 </select>
+                
             </div>);
     }
+}
+
+
+
+function ObjectOption() {
+    const options = this.state.availableObjects.map( (availableObject) => {
+        <option key="availableObject" value="availableObject">{availableObject}</option>
+    })
+
+    return (<select class="form-select" aria-label="Default select example">
+                {options}
+            </select>);
 }
  
 export default FieldSelection;

@@ -6,7 +6,8 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 class SfFieldCreation extends Component {
 
     state = {
-        loggedIn : false
+        loggedIn : false,
+        availableObjects : null
     }
 
     handleAuthentication = (loginScreenState) => {
@@ -23,7 +24,7 @@ class SfFieldCreation extends Component {
                 if (res.error) {
                     this.setState( { loggedIn: false })
                 } else {
-                    this.setState( { loggedIn: true })
+                    this.setState( { loggedIn: true, availableObjects : res.availableObjects })
                 }
                 
             })            
@@ -38,7 +39,7 @@ class SfFieldCreation extends Component {
                     {this.state.loggedIn ? <Redirect to="/fieldSelection" /> : <LoginScreen onAuthentication={this.handleAuthentication} /> }
                 </Route>
                 <Route path="/fieldSelection">
-                    <FieldSelection />
+                    <FieldSelection availableObjects={this.state.availableObjects} />
                 </Route>
             </Switch>
         </Router>);
