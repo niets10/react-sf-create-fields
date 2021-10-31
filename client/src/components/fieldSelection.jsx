@@ -4,7 +4,8 @@ class FieldSelection extends Component {
 
     state = {
         availableObjects : null,
-        selectedObject : ''
+        selectedObject : '',
+        selectedFile : null
     }
 
     constructor(props) {
@@ -13,12 +14,17 @@ class FieldSelection extends Component {
         this.state.availableObjects = this.props.availableObjects;
     }
 
-    createFields = () => {    
+    createFields = () => {  
+        
+        console.log('SecFile ' + this.state.selectedFile.name);
+    
+        const formData = new FormData();
+        formData.append( "myFile", this.state.selectedFile );
+        formData.append( "selectedObject", this.state.selectedObject );
 
         fetch("/createFields",  {
             method : 'POST',
-            body : JSON.stringify(this.state),
-            headers : { "Content-Type": "application/json" }
+            body : formData
         })
         .then( (res) => res.json() )
         .then( (res) => {
@@ -31,11 +37,24 @@ class FieldSelection extends Component {
         this.setState( { selectedObject : event.target.value})
     };
 
+    onFileChange = (event) => {
+
+        console.log('Selected file...');
+        this.setState( { selectedFile : event.target.files[0] } );
+
+    }
+
     render() { 
         return (
             <div>
                 <ObjectOption onChangeObjectSelection={this.handleChangeObjectSelection} availableObjects={this.state.availableObjects} />                
-                <button class="btn btn-primary" onClick={this.createFields}>Create fields</button>
+                <div className="mb-3"> 
+                    <input class="form-control" type="file" onChange={this.onFileChange} />                    
+                </div> 
+                <div>
+                    <button class="btn btn-primary" onClick={this.createFields}>Create fields</button>
+                </div>
+                
             </div>);
     }
 }

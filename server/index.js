@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require('path');
+const fileUpload = require('express-fileupload');
 
 // Import internal modules
 const { sfAuthentication, getAvailableObjects } = require('./utilities/sf-logic');
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 3001;
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.use(express.json());
+app.use(fileUpload());
 
 /**
  * POST METHODS
@@ -35,7 +37,9 @@ app.post("/authenticate", async (req, res, next) => {
 });
 
 app.post("/createFields", async (req, res) => {
-    console.log('Creating fields...', req.body.selectedObject);
+    console.log('GTK');
+    console.log('File ->', req.files);
+    console.log('Selected Object ->', req.body.selectedObject);
 })
 
 /**
