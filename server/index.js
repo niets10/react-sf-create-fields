@@ -34,6 +34,10 @@ app.post("/authenticate", async (req, res, next) => {
     }
 });
 
+app.post("/createFields", async (req, res) => {
+    console.log('Creating fields...', req.body.selectedObject);
+})
+
 /**
  * GET METHODS
  */
