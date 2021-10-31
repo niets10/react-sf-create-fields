@@ -15,22 +15,14 @@ class FieldSelection extends Component {
     render() { 
         return (
             <div>
-                <select class="form-select" aria-label="Default select example">
-
-                    {this.state.availableObjects.map(availableObject => {
-                        return <option>{availableObject}</option>
-                    })}
-                </select>
-                
+                <ObjectOption availableObjects={this.state.availableObjects} />                
             </div>);
     }
 }
 
-
-
-function ObjectOption() {
-    const options = this.state.availableObjects.map( (availableObject) => {
-        <option key="availableObject" value="availableObject">{availableObject}</option>
+function ObjectOption(props) {
+    const options = props.availableObjects.map( (availableObject) => {
+        return <option key="availableObject" value="availableObject">{availableObject}</option>
     })
 
     return (<select class="form-select" aria-label="Default select example">
