@@ -34,11 +34,6 @@ app.post("/authenticate", async (req, res, next) => {
     }
 });
 
-app.post("/selectObject", async (req, res) => {
-    console.log('Getting objects...');
-    res.send(  );
-})
-
 /**
  * GET METHODS
  */
