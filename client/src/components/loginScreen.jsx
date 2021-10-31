@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 
-
-
-
 class LoginScreen extends Component {
 
     constructor(props) {
@@ -24,20 +21,6 @@ class LoginScreen extends Component {
             [event.target.name]: value
         });
     }
-
-    // authenticate = () => {
-    //     console.log('Authenticating...');
-
-    //     fetch("/authenticate",  {
-    //       method : 'POST',
-    //       body : JSON.stringify(this.state),
-    //       headers : { "Content-Type": "application/json" }
-    //     })
-    //     .then( (res) => res.json() )
-    //     .then( (conn) => {
-            
-    //     })
-    // }
         
     render() { 
         return (

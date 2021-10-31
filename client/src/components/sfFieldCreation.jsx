@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LoginScreen from './loginScreen';
+import FieldSelection from './fieldSelection';
 
 class SfFieldCreation extends Component {
 
@@ -23,10 +24,10 @@ class SfFieldCreation extends Component {
         })
     }
 
-
     render() { 
         return (<div>
             <LoginScreen onAuthentication={this.handleAuthentication} />
+            <FieldSelection />
         </div>);
     }
 }
