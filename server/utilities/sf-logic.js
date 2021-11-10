@@ -13,13 +13,14 @@ worksheet.columns = [
 
 //module import
 const metadataMapping = require('./metadata-mapping');
+const e = require('express');
 
 let conn;
 let totalMetadata =  [];
 let objectName;
-let fileName;
-//Determines if there's an error. If so, we create the file.
-let createErrorFile = false;
+
+let u;
+
 class Field {
     constructor(type, label, apiName, length, precision, decimalPlaces, description,  helpText,
                 required, unique, externalId,  startingNumber, picklistValues, displayFormat,               
@@ -50,6 +51,8 @@ async function sfAuthentication(body) {
 
     const { username, password, token, environment } = body;
 
+    u = username;
+
     let url = environment === 'sf-production' ? 'https://login.salesforce.com/' : 'https://test.salesforce.com/';
 
     try {
@@ -58,29 +61,33 @@ async function sfAuthentication(body) {
 
         await conn.login(username, password + token);
 
-        console.log("Logged in correctly!");
-
-        //Get excel fields
-        let fields = await getFieldsExcel(fileName);
-        console.log('Excel fields fetched!');
-
-        //Create fields
-        await createFields(fields);
-
-        //Check total metadata
-        if (!totalMetadata.length) return;
-
-        //Query profiles
-        let profiles = await queryProfiles();
-        console.log('Profiles fetched!');
-
-        //Update profiles
-        await updateProfiles(profiles);
-        console.log('Profiles updated!');  
+        console.log("Logged in correctly!");        
 
     } catch (error) {
         throw error;
     }
+}
+
+async function createCustomFields(selectedObject, file) {
+
+    objectName = selectedObject;
+
+    //Get excel fields
+    let fields = await getFieldsExcel(file);
+
+    //Create fields
+    await createFields(fields);
+
+    //Check total metadata
+    if (!totalMetadata.length) return;
+
+    //Query profiles
+    let profiles = await queryProfiles();
+    console.log('Profiles fetched!');
+
+    //Update profiles
+    await updateProfiles(profiles);
+    console.log('Profiles updated!');
 }
 
 async function getFieldsExcel(file){
@@ -91,12 +98,11 @@ async function getFieldsExcel(file){
     const workbook = new exceljs.Workbook();    
 
     await workbook.xlsx.load(file.data)
-    .then( async (woorkbook) => {
-        // console.log('ROWS ', workbook.worksheets[0]);
+    .then( async () => {
 
         let worksheet = workbook.worksheets[0];
 
-        worksheet.eachRow((row, rowNumber) => {
+        worksheet.eachRow((row) => {
 
             let rowValues = row.values;
 
@@ -127,34 +133,16 @@ async function getFieldsExcel(file){
         //Remove first element (the header)
         fields.shift();
 
-        console.log('Fields ' + JSON.stringify(fields));
-
-        return fields;
-
     })
     .catch( (error) => {
         console.log('Error when reading the excel file ' + error);
-    })
+    });
+
+    return fields;
 }
-
-async function createCustomFields(selectedObject, file) {
-
-    objectName = selectedObject;
-
-    await getFieldsExcel(file);
-
-    if (createErrorFile) {
-        console.log('Creating error file...');
-        writeFile();
-        console.log('File created!');
-    } else {
-        console.log('Finished!');
-    }  
-}
-
 
 function createFields(fields){
-    console.log('Creating fields...');
+    console.log('Creating fields...: ' + JSON.stringify(fields));
     // Process in pararel all fields
     let promises = fields.map(createField);
     return Promise.all(promises);
@@ -163,6 +151,8 @@ function createFields(fields){
 function createField(field) {
 
     let metadata = metadataMapping.generateMetadata(field, objectName);
+
+    console.log('U: ' + u);
 
     //Seems like using a list, maximum ten fields can be created
     //Returns a promise
