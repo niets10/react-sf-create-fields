@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(fileUpload());
 
 /**
- * POST METHODS
+ * POST METHODS 
  */
 app.post("/authenticate", async (req, res, next) => {
 
