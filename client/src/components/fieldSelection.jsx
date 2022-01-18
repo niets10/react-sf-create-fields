@@ -27,9 +27,7 @@ class FieldSelection extends Component {
         return props.availableObjects;
     }
 
-    createFields = () => {  
-        
-        console.log('SecFile ' + this.state.selectedFile.name);
+    createFields = () => {
     
         const formData = new FormData();
         formData.append( "myFile", this.state.selectedFile );
