@@ -33,16 +33,17 @@ class SfFieldCreation extends Component {
 
     render() { 
         return (
-        <Router>
-            <Switch>
-                <Route exact path="/" >
-                    {this.state.loggedIn ? <Redirect to="/fieldSelection" /> : <LoginScreen onAuthentication={this.handleAuthentication} /> }
-                </Route>
-                <Route path="/fieldSelection">
-                    <FieldSelection availableObjects={this.state.availableObjects} />
-                </Route>
-            </Switch>
-        </Router>);
+            <Router>
+                <Switch>
+                    <Route exact path="/" >
+                        {this.state.loggedIn ? <Redirect to="/fieldSelection" /> : <LoginScreen onAuthentication={this.handleAuthentication} /> }
+                    </Route>
+                    <Route path="/fieldSelection">
+                        <FieldSelection availableObjects={this.state.availableObjects} />
+                    </Route>
+                </Switch>
+            </Router>
+        );
     }
 }
  
