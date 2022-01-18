@@ -279,11 +279,12 @@ async function getAvailableObjects() {
     await conn.metadata.list(types, '53.0', function(err, metadata) {
         if (err) { return console.error('err', err); }
         
-        objectNames = metadata.map((meta) => {
-            
+        objectNames = metadata.filter((meta) => {
+            return "manageableState" in meta === false || meta.manageableState === "unmanaged";
+        })
+        .map((meta) => {
             return meta.fullName;
         });
-        
     });
 
     return objectNames;
