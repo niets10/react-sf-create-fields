@@ -22,9 +22,11 @@ class SfFieldCreation extends Component {
             .then( (res) => {
 
                 if (res.error) {
-                    this.setState( { loggedIn: false })
+                    this.setState( { loggedIn: false });
                 } else {
-                    this.setState( { loggedIn: true, availableObjects : res.availableObjects })
+                    this.setState( { loggedIn: true, availableObjects : res.availableObjects });
+
+                    sessionStorage.setItem("state", JSON.stringify(this.state));
                 }
                 
             })            

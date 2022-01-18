@@ -11,7 +11,20 @@ class FieldSelection extends Component {
     constructor(props) {
         super(props);
 
-        this.state.availableObjects = this.props.availableObjects;
+        this.state.availableObjects = this.setAvailableObjects(this.props);
+    }
+
+    setAvailableObjects = (props) => {
+
+        if (props.availableObjects === null) {
+            const stateJSON = sessionStorage.getItem("state");
+
+            const state = JSON.parse(stateJSON);            
+
+            return state["availableObjects"];
+        }
+
+        return props.availableObjects;
     }
 
     createFields = () => {  

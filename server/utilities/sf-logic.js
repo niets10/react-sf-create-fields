@@ -264,7 +264,7 @@ function updateProfile(profile) {
             });
 
             } else {
-            console.log("Profile updated: " + JSON.stringify(result));
+                console.log("Profile updated: " + JSON.stringify(result));
             }
         }
         );
