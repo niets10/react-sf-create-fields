@@ -73,7 +73,7 @@ class FieldSelection extends Component {
 }
 
 function ObjectOption(props) {
-    const options = props.availableObjects.map( (availableObject) => {
+    const options = props.availableObjects.sort().map( (availableObject) => {
         return <option key={availableObject} value={availableObject} >{availableObject}</option>
     })
 
