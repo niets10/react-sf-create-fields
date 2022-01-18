@@ -37,10 +37,6 @@ app.post("/authenticate", async (req, res, next) => {
 });
 
 app.post("/createFields", async (req, res) => {
-    console.log('GTK');
-    console.log('File ->', req.files["myFile"]);
-    console.log('Selected Object ->', req.body.selectedObject);
-
     createCustomFields(req.body.selectedObject, req.files["myFile"]);
 })
 
