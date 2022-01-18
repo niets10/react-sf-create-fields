@@ -8,7 +8,7 @@ const ErrorMessage = (props) => {
             <div className="flex-container error-container p-2 mb-2 mx-2">
                 <div >{props.errorMessage}</div>
                 <div className="px-1">
-                    <button type="button" class="btn-close" aria-label="Close" onClick={props.onHideError}></button>
+                    <button type="button" class="btn-close btn-close-white" aria-label="Close" onClick={props.onHideError}></button>
                 </div>
             </div>
         </>

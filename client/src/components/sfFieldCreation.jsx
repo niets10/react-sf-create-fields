@@ -29,7 +29,8 @@ class SfFieldCreation extends Component {
 
                     console.log(`Error React: ${res.body}`);
 
-                    this.setState( { errorMessage : res.body });
+                    // Remove the dot at the end
+                    this.setState( { errorMessage : res.body.slice(0, -1) });
                     this.setState( { error : true });
 
                 } else {
