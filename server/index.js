@@ -30,7 +30,7 @@ app.post("/authenticate", async (req, res, next) => {
     } catch (error) {
         
         console.log('Error authenticating: ' + error);
-        res.send( { error: true, body: error} );
+        res.send( { error: true, body: error.message } );
         next(error);
 
     }
